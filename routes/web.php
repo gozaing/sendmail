@@ -10,7 +10,25 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+//namespace SendGrid;
+//
 Route::get('/', function () {
-    return view('welcome');
+
+    $from = new SendGrid\Email("桃原momobaru", "info@momobaru.com");
+    $subject = "どーも";
+    $to = new SendGrid\Email("to-name", "xxx@gmail.com");
+    $content = new SendGrid\Content("text/plain", "hi どーもどーも");
+    $mail = new SendGrid\Mail($from, $subject, $to, $content);
+
+    $apiKey = getenv('SENDGRID_API_KEY');
+    $sg = new \SendGrid($apiKey);
+
+    $response = $sg->client->mail()->send()->post($mail);
+    echo $response->statusCode();
+    print_r($response->headers());
+    echo $response->body();
+
+//    return view('welcome');
+
+
 });
