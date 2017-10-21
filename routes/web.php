@@ -14,6 +14,11 @@
 //
 Route::get('/', function () {
 
+    return view('welcome');
+});
+
+Route::get('/send', function () {
+
     $from = new SendGrid\Email("桃原momobaru", "info@momobaru.com");
     $subject = "どーも";
     $to = new SendGrid\Email("to-name", "xxx@gmail.com");
